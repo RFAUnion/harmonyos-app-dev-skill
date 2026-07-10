@@ -2,7 +2,7 @@
 
 A Codex skill for native HarmonyOS/OpenHarmony application development.
 
-It helps Codex build, modify, review, and debug HarmonyOS apps using ArkTS, ArkUI, the Stage model, UIAbility, DevEco Studio, ohpm, hvigor, app/module JSON5 configuration, signing/debugging workflows, HarmonyOS 6.1 immersive navigation patterns such as `HdsNavigation`, `HdsTabs`, floating tabs, immersive light material, and liquid tab indicators with `HdsMiniBarButton`, plus one-shot/shared-element transitions using `geometryTransition`, `NodeController`, `NodeContainer`, and `Navigation.customNavContentTransition`.
+It helps Codex build, modify, review, and debug HarmonyOS apps using ArkTS, ArkUI, the Stage model, UIAbility, DevEco Studio, ohpm, hvigor, app/module JSON5 configuration, signing/debugging workflows, HarmonyOS 6.1 immersive navigation patterns such as `HdsNavigation`, `HdsTabs`, floating tabs, HDS immersive light material, and liquid tab indicators with `HdsMiniBarButton`. It also covers HarmonyOS 7 spatialization planning and responsive layouts for phones, tablets, foldables, and multi-window apps, plus one-shot/shared-element transitions using `geometryTransition`, `NodeController`, `NodeContainer`, and `Navigation.customNavContentTransition`.
 
 ## Install
 

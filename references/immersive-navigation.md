@@ -1,8 +1,11 @@
 # Immersive Light And Floating Navigation
 
-Use this reference when the user asks for `沉浸光感`, `沉浸导航`, `悬浮导航`, `悬浮页签`, `HdsNavigation`, `HdsTabs`, `UIDesignKit`, `hdsMaterial`, or HarmonyOS 6.1 visual shell work.
+Use this reference when the user asks for `沉浸光感`, `沉浸导航`, `悬浮导航`, `悬浮页签`, `HdsNavigation`, `HdsTabs`, `UIDesignKit`, `hdsMaterial`, `systemMaterialEffect`, or HarmonyOS 6.1 visual shell work.
 
-Source case study: `https://developer.huawei.com/consumer/cn/blog/topic/03212369425758084`
+Source case studies:
+
+- `https://developer.huawei.com/consumer/cn/blog/topic/03212369425758084`
+- `https://developer.huawei.com/consumer/cn/blog/topic/03211806266023148`
 
 ## Design Intent
 
@@ -21,37 +24,60 @@ Typical imports:
 
 ```ts
 import { HdsNavigation, HdsNavigationTitleMode, HdsTabs, HdsTabsController, SystemMaterialParams, hdsMaterial } from '@kit.UIDesignKit';
+import { deviceInfo } from '@kit.BasicServicesKit';
 ```
 
 Adapt exact symbols to the installed SDK. If these imports fail, verify HarmonyOS SDK/API level and UIDesignKit availability in DevEco Studio SDK Manager.
 
-## Material Capability Strategy
+## Material Capability And Version Strategy
 
-Do not hardcode the strongest immersive material. Query system material capability first, use immersive/adaptive when supported, and fall back to a smoother stable level when not supported.
+The HDS material case study targets HarmonyOS 6.1.0(23) and exposes `systemMaterialEffect` through `@kit.UIDesignKit`. The compile SDK must expose these symbols before a runtime check can help. For runtime compatibility, use the version API supported by the installed SDK; the case study uses `deviceInfo.sdkApiVersion >= 23`, while another sample may use `distributionOSApiVersion >= 60100`. These values are different representations; do not mix them or invent a threshold without checking the SDK.
+
+Prefer the system's adaptive choice for normal production UI. Only force immersive/exquisite when the product genuinely needs the stronger visual feedback and the device capability check passes.
 
 ```ts
-@State immersiveMaterialLevel: hdsMaterial.MaterialLevel = hdsMaterial.MaterialLevel.ADAPTIVE;
+@State materialType: hdsMaterial.MaterialType = hdsMaterial.MaterialType.ADAPTIVE;
+@State materialLevel: hdsMaterial.MaterialLevel = hdsMaterial.MaterialLevel.ADAPTIVE;
 
 aboutToAppear(): void {
-  this.resolveImmersiveMaterialLevel();
+  this.resolveMaterialEffect();
 }
 
-private resolveImmersiveMaterialLevel(): void {
-  let materialTypes: Array<hdsMaterial.MaterialType> = hdsMaterial.getSystemMaterialTypes();
-  if (materialTypes.indexOf(hdsMaterial.MaterialType.IMMERSIVE) < 0) {
-    this.immersiveMaterialLevel = hdsMaterial.MaterialLevel.SMOOTH;
+private resolveMaterialEffect(): void {
+  // Keep this branch aligned with the SDK version used by the project.
+  if (deviceInfo.sdkApiVersion < 23) {
+    this.materialType = hdsMaterial.MaterialType.BACKGROUND_BLUR;
+    this.materialLevel = hdsMaterial.MaterialLevel.SMOOTH;
     return;
   }
-  this.immersiveMaterialLevel = hdsMaterial.MaterialLevel.ADAPTIVE;
+
+  let materialTypes: Array<hdsMaterial.MaterialType> =
+    hdsMaterial.getSystemMaterialTypes();
+  if (materialTypes.indexOf(hdsMaterial.MaterialType.IMMERSIVE) < 0) {
+    this.materialType = hdsMaterial.MaterialType.BACKGROUND_BLUR;
+    this.materialLevel = hdsMaterial.MaterialLevel.SMOOTH;
+    return;
+  }
+  this.materialType = hdsMaterial.MaterialType.ADAPTIVE;
+  this.materialLevel = hdsMaterial.MaterialLevel.ADAPTIVE;
 }
 
 private buildAdaptiveMaterialEffect(): SystemMaterialParams {
   return {
-    materialType: hdsMaterial.MaterialType.ADAPTIVE,
-    materialLevel: this.immersiveMaterialLevel
+    materialType: this.materialType,
+    materialLevel: this.materialLevel
   };
 }
 ```
+
+For a deliberate high-end mode, initialize `materialType` to `IMMERSIVE` and `materialLevel` to `EXQUISITE`, then downgrade to `BACKGROUND_BLUR` + `SMOOTH` when `IMMERSIVE` is not listed by `getSystemMaterialTypes()`. This path costs more power and can reduce frame pacing on weaker devices.
+
+Material levels commonly used by the case study:
+
+- `ADAPTIVE`: system-selected balance for ordinary UI.
+- `EXQUISITE`: strongest light and reflection feedback; use selectively.
+- `GENTLE`: softer light response.
+- `SMOOTH`: lowest-cost fallback, typically paired with `BACKGROUND_BLUR`.
 
 ## Floating Tab Bar
 
@@ -93,6 +119,27 @@ private getTabContentBottomPadding(): number {
 ```
 
 Tune the padding for the actual bar height, bottom margin, safe area, and overlay button footprint.
+
+## HDS Tab Item Styling
+
+The material effect is only one part of selected-state clarity. For system Symbol icons, use `SymbolGlyphModifier` to keep normal and selected glyphs distinct and use multi-color rendering when the design calls for it:
+
+```ts
+interface MenuItem {
+  normal: SymbolGlyphModifier;
+  selected: SymbolGlyphModifier;
+  label: string;
+}
+
+const item = new BottomTabBarStyle({
+  normal: menuItem.normal,
+  selected: menuItem.selected
+}, menuItem.label).labelStyle({
+  selectedColor: $r('app.color.primary_blue')
+});
+```
+
+Keep the selected icon/label contrast readable in light and dark modes. The material highlight, blur, or point-light response must not be the only signal that a tab is selected. When adding a custom liquid indicator, route the detailed gesture and overlay rules through `immersive-tabbar-indicator.md`.
 
 ## Page Shell
 
