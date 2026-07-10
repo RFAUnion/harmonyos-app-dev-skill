@@ -1,0 +1,4 @@
+interface:
+  display_name: "HarmonyOS App Dev"
+  short_description: "Build native HarmonyOS apps"
+  default_prompt: "Use $harmonyos-app-dev to build, debug, or review a native HarmonyOS ArkTS app."
