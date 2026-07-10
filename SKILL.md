@@ -1,6 +1,6 @@
 ---
 name: harmonyos-app-dev
-description: Native HarmonyOS/OpenHarmony app development with ArkTS, ArkUI, Stage model, UIAbility, DevEco Studio, ohpm, hvigor, app/module JSON5, signing, debugging, HDS immersive light, liquid tab indicators, responsive multi-device layouts, spatialization planning, one-shot transitions, and build troubleshooting. Use for building, modifying, debugging, reviewing, or scaffolding HarmonyOS apps, especially when the user mentions 鸿蒙应用开发, 原生鸿蒙, HarmonyOS NEXT, HarmonyOS 7, ArkTS, ArkUI, DevEco Studio, UIAbility, Stage模型, HAP, HAR, HSP, module.json5, app.json5, ohpm, hvigor, 沉浸光感, 沉浸导航, 悬浮导航, 悬浮页签, 液态指示器, 液态TabBar, 多端适配, 平板适配, 折叠屏适配, 多窗口, 空间化, HdsNavigation, HdsTabs, HdsMiniBarButton, UIDesignKit, hds_button, hdsMaterial, systemMaterialEffect, MaterialType.ADAPTIVE, SymbolGlyphModifier, barFloatingStyle, setWindowLayoutFullScreen, 一镜到底, 共享元素转场, geometryTransition, NodeController, NodeContainer, customNavContentTransition, or componentSnapshot.
+description: Native HarmonyOS/OpenHarmony app development with ArkTS, ArkUI, Stage model, UIAbility, DevEco Studio, ohpm, hvigor, JSON5, signing, debugging, AppGallery Connect publishing, HDS immersive light, responsive multi-device layouts, spatialization, one-shot transitions, and build troubleshooting. Use for building, modifying, debugging, reviewing, scaffolding, or publishing apps, especially when the user mentions 鸿蒙应用开发, 原生鸿蒙, HarmonyOS NEXT, HarmonyOS 7, ArkTS, ArkUI, DevEco Studio, UIAbility, Stage模型, HAP, HAR, HSP, module.json5, app.json5, ohpm, hvigor, 上架, 发布, 提审, AppGallery Connect, AGC, Signing Profile, versionCode, signed HAP, signed APP, CI/CD, 自动上架, 沉浸光感, 沉浸导航, 悬浮导航, 悬浮页签, 液态指示器, 液态TabBar, 多端适配, 折叠屏, 多窗口, 空间化, HdsNavigation, HdsTabs, HdsMiniBarButton, UIDesignKit, hdsMaterial, systemMaterialEffect, MaterialType.ADAPTIVE, 一镜到底, 共享元素转场, geometryTransition, NodeController, NodeContainer, customNavContentTransition, or componentSnapshot.
 ---
 
 # HarmonyOS App Development
@@ -33,6 +33,7 @@ Do not treat this skill as a static API dump. HarmonyOS documentation and SDK be
    - For liquid tab indicators, `HdsMiniBarButton`, custom tab-bar overlays, drag/snap behavior, and API 60100+ full-screen safe-area handling, read `references/immersive-tabbar-indicator.md`.
    - For HarmonyOS 7 spatialization planning, phone/tablet/foldable/multi-window layouts, workbench/list-detail/form/empty/settings priorities, read `references/multidevice-layout.md`.
    - For one-shot / shared-element / shared-container page transition animation, `geometryTransition`, `NodeController`, `NodeContainer`, `customNavContentTransition`, and `componentSnapshot`, read `references/one-shot-transition.md`.
+   - For AppGallery Connect publishing, release signing, HAP/APP packaging, store metadata, privacy and permission preflight, review rejection fixes, Connect API, and CI/CD release automation, read `references/app-release.md`.
 
 3. Edit narrowly.
    - Put UI screens in `.ets` files under `src/main/ets/pages` unless the project uses Navigation destinations elsewhere.
@@ -45,11 +46,13 @@ Do not treat this skill as a static API dump. HarmonyOS documentation and SDK be
    - Run `ohpm install` if dependencies changed or `oh_modules` is missing.
    - Run `hvigor clean assembleApp` or the project-specific task.
    - If command-line hvigor fails due to SDK Manager, Java, or signing configuration, report the exact blocker and use DevEco Studio for SDK/signing/device steps.
+   - For release work, run the app-release preflight before uploading anything to AGC.
 
 5. Keep runtime constraints visible.
    - Unsigned HAP/APP packages may build but cannot be installed normally.
    - Auto signing is for debugging; publishing and restricted permissions generally require manual signing/profile configuration.
    - Simulator behavior can differ from real devices for APIs, sensors, media, concurrency, and distributed capabilities.
+   - Uploading, submitting review, and publishing are separate external actions. Confirm the target app, version, track, and desired action before performing them.
 
 ## Official Documentation Entry Points
 
@@ -66,4 +69,9 @@ Use these official pages as canonical starting points when live verification is 
 - Immersive light tab-bar indicator optimization: `https://developer.huawei.com/consumer/cn/blog/topic/03212848303315412`
 - HDS immersive light material guide: `https://developer.huawei.com/consumer/cn/blog/topic/03211806266023148`
 - HarmonyOS 7 spatialization and multi-device layout guide: `https://developer.huawei.com/consumer/cn/blog/topic/03218972610058011`
+- HarmonyOS app listing and publishing guide: `https://developer.huawei.com/consumer/cn/blog/topic/03217070922107125`
+- AppGallery Connect distribution guide: `https://developer.huawei.com/consumer/cn/appgallery/devstart/`
+- Submit a HarmonyOS app: `https://developer.huawei.com/consumer/cn/app/submit/`
+- AppGallery Connect overview: `https://developer.huawei.com/consumer/cn/doc/overview/AppGallery-connect`
+- AppGallery Connect Connect API preparation: `https://developer.huawei.com/consumer/cn/codelab/AGCPreparation-connectapi/`
 - One-shot transition best practice: `https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-one-shot-to-the-end`
