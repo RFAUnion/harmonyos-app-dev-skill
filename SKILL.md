@@ -1,6 +1,6 @@
 ---
 name: harmonyos-app-dev
-description: Native HarmonyOS and OpenHarmony application development with ArkTS, ArkUI, Stage model, UIAbility, DevEco Studio, ohpm, hvigor, HAP/HAR/HSP packages, app.json5, module.json5, signing, simulator/device debugging, immersive navigation, floating tabs, immersive light material, and build troubleshooting. Use when building, modifying, debugging, reviewing, explaining, or scaffolding HarmonyOS apps or when the user mentions 鸿蒙应用开发, 原生鸿蒙, HarmonyOS NEXT, ArkTS, ArkUI, DevEco Studio, UIAbility, Stage模型, HAP, HAR, HSP, module.json5, app.json5, ohpm, hvigor, 沉浸光感, 沉浸导航, 悬浮导航, 悬浮页签, HdsNavigation, HdsTabs, UIDesignKit, hdsMaterial, or barFloatingStyle.
+description: Native HarmonyOS and OpenHarmony application development with ArkTS, ArkUI, Stage model, UIAbility, DevEco Studio, ohpm, hvigor, HAP/HAR/HSP packages, app.json5, module.json5, signing, simulator/device debugging, immersive navigation, floating tabs, immersive light material, one-shot/shared-element transitions, and build troubleshooting. Use when building, modifying, debugging, reviewing, explaining, or scaffolding HarmonyOS apps or when the user mentions 鸿蒙应用开发, 原生鸿蒙, HarmonyOS NEXT, ArkTS, ArkUI, DevEco Studio, UIAbility, Stage模型, HAP, HAR, HSP, module.json5, app.json5, ohpm, hvigor, 沉浸光感, 沉浸导航, 悬浮导航, 悬浮页签, HdsNavigation, HdsTabs, UIDesignKit, hdsMaterial, barFloatingStyle, 一镜到底, 共享元素转场, 共享容器转场, geometryTransition, NodeController, NodeContainer, customNavContentTransition, NavigationAnimatedTransition, or componentSnapshot.
 ---
 
 # HarmonyOS App Development
@@ -30,6 +30,7 @@ Do not treat this skill as a static API dump. HarmonyOS documentation and SDK be
    - For preferences, KV, relational data, and sharing, read `references/data-storage.md`.
    - For DevEco Studio, SDK Manager, ohpm, hvigor, signing, and device debugging, read `references/tooling-devstudio.md`.
    - For HarmonyOS 6.1 immersive light, floating/immersive navigation, `HdsNavigation`, `HdsTabs`, and `hdsMaterial`, read `references/immersive-navigation.md`.
+   - For one-shot / shared-element / shared-container page transition animation, `geometryTransition`, `NodeController`, `NodeContainer`, `customNavContentTransition`, and `componentSnapshot`, read `references/one-shot-transition.md`.
 
 3. Edit narrowly.
    - Put UI screens in `.ets` files under `src/main/ets/pages` unless the project uses Navigation destinations elsewhere.
@@ -60,3 +61,4 @@ Use these official pages as canonical starting points when live verification is 
 - Ability Kit overview: `https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/abilitykit-overview`
 - Tooling overview: `https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-tools-overview`
 - Floating navigation and immersive light case study: `https://developer.huawei.com/consumer/cn/blog/topic/03212369425758084`
+- One-shot transition best practice: `https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-one-shot-to-the-end`
